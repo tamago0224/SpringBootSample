@@ -25,7 +25,7 @@ public class HelloController {
         d1.setName("tuyano");
         d1.setAge(90);
         d1.setMail("syada@tuyano.com");
-        d1.setMemo("This is first dummy data.");
+        d1.setMemo("080-222-222");
         repository.saveAndFlush(d1);
 
         //２つ目のダミーデータ
@@ -33,7 +33,7 @@ public class HelloController {
         d2.setName("hanako");
         d2.setAge(23);
         d2.setMail("hanako@flower");
-        d2.setMemo("this is second dummy data.");
+        d2.setMemo("090-111-111");
         repository.saveAndFlush(d2);
 
         //３つ目のダミーデータ
@@ -41,7 +41,7 @@ public class HelloController {
         d3.setName("sachiko");
         d3.setAge(43);
         d3.setMail("sachiko@happy");
-        d3.setMemo("This is third dummy data.");
+        d3.setMemo("070-222-222");
         repository.saveAndFlush(d3);
     }
 

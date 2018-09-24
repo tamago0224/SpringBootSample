@@ -1,5 +1,6 @@
 package com.narberalgamma.com.demo;
 
+import com.narberalgamma.com.demo.repositories.Phone;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,5 +35,6 @@ public class MyData {
     private Integer age;
 
     @Column(nullable = true)
+    @Phone
     private String memo;
 }
