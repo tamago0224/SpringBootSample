@@ -4,6 +4,8 @@ import com.narberalgamma.com.demo.repositories.MyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +23,7 @@ public class HelloController {
         //１つ目のダミーデータ
         MyData d1 = new MyData();
         d1.setName("tuyano");
-        d1.setAge(123);
+        d1.setAge(90);
         d1.setMail("syada@tuyano.com");
         d1.setMemo("This is first dummy data.");
         repository.saveAndFlush(d1);
@@ -57,10 +59,23 @@ public class HelloController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Transactional(readOnly = false)
     public ModelAndView form(
-            @ModelAttribute("formModel") MyData mydata,
+            @ModelAttribute("formModel")
+            @Validated MyData mydata,
+            BindingResult result,
             ModelAndView mav) {
-        repository.saveAndFlush(mydata);
-        return new ModelAndView("redirect:/");
+        ModelAndView res = null;
+        if(!result.hasErrors()) {
+            repository.saveAndFlush(mydata);
+            res = new ModelAndView("redirect:/");
+        } else {
+            mav.setViewName("index");
+            mav.addObject("msg", "sorry, erro is ocured...");
+            Iterable<MyData> list = repository.findAll();
+            mav.addObject("datalist", list);
+            res = mav;
+        }
+
+        return res;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
